@@ -108,7 +108,7 @@
     else if ([[[UIDevice currentDevice] model] rangeOfString:@"iPod"].location != NSNotFound)
         url = [NSURL URLWithString:@"www.apple.com/ipod-touch"];
     else
-        url = [NSURL URLWithString:@"www.apple.com/iphone"];
+        url = [NSURL URLWithString:@"www.baidu.com"];
 #endif
     
     TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:url];

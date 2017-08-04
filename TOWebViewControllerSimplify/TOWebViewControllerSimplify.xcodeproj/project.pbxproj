@@ -17,7 +17,6 @@
 		6C424FBB1F34226C00BCD710 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C424FAF1F34226C00BCD710 /* LaunchScreen.xib */; };
 		6C424FBD1F34226C00BCD710 /* TOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C424FB21F34226C00BCD710 /* TOAppDelegate.m */; };
 		6C424FBE1F34226C00BCD710 /* TOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C424FB41F34226C00BCD710 /* TOViewController.m */; };
-		6C424FDB1F34227600BCD710 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C424FC51F34227600BCD710 /* Info.plist */; };
 		6C424FDC1F34227600BCD710 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C424FCB1F34227600BCD710 /* NJKWebViewProgress.m */; };
 		6C424FDD1F34227600BCD710 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C424FCD1F34227600BCD710 /* NJKWebViewProgressView.m */; };
 		6C424FDE1F34227600BCD710 /* TOActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C424FD11F34227600BCD710 /* TOActivitySafari.m */; };
@@ -42,7 +41,6 @@
 		6C424FB31F34226C00BCD710 /* TOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOViewController.h; sourceTree = "<group>"; };
 		6C424FB41F34226C00BCD710 /* TOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOViewController.m; sourceTree = "<group>"; };
 		6C424FB51F34226C00BCD710 /* TOWebViewControllerExample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TOWebViewControllerExample-Prefix.pch"; sourceTree = "<group>"; };
-		6C424FC51F34227600BCD710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C424FCA1F34227600BCD710 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
 		6C424FCB1F34227600BCD710 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
 		6C424FCC1F34227600BCD710 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 		6C424FBF1F34227600BCD710 /* TOWebViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6C424FC51F34227600BCD710 /* Info.plist */,
 				6C424FC91F34227600BCD710 /* NJKWebViewProgress */,
 				6C424FD01F34227600BCD710 /* TOActivitySafari.h */,
 				6C424FD11F34227600BCD710 /* TOActivitySafari.m */,
@@ -225,7 +222,6 @@
 				6C424FBB1F34226C00BCD710 /* LaunchScreen.xib in Resources */,
 				6C424F9F1F34223600BCD710 /* LaunchScreen.storyboard in Resources */,
 				6C424F9C1F34223600BCD710 /* Assets.xcassets in Resources */,
-				6C424FDB1F34227600BCD710 /* Info.plist in Resources */,
 				6C424FE11F34227600BCD710 /* 说明 in Resources */,
 				6C424FB81F34226C00BCD710 /* TOViewController_iPad.xib in Resources */,
 			);
