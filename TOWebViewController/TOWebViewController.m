@@ -22,7 +22,7 @@
 
 #import "TOWebViewController.h"
 #import "TOActivitySafari.h"
-#import "TOActivityChrome.h"
+
 #import "UIImage+TOWebViewControllerIcons.h"
 
 #import "NJKWebViewProgress.h"
@@ -152,7 +152,7 @@
 - (void)openInBrowser;
 - (void)openMailDialog;
 - (void)openMessageDialog;
-- (void)openTwitterDialog;
+
 
 /* Methods to contain all of the functionality needed to properly animate the UIWebView rotating */
 - (CGRect)rectForVisibleRegionOfWebViewAnimatingToOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
@@ -951,7 +951,7 @@
     }
     // If we're on iOS 6 or above, we can use the super-duper activity view controller :)
     if (NSClassFromString(@"UIPresentationController")) {
-        NSArray *browserActivities = @[[TOActivitySafari new], [TOActivityChrome new]];
+        NSArray *browserActivities = @[[TOActivitySafari new]];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self.url] applicationActivities:browserActivities];
         activityViewController.modalPresentationStyle = UIModalPresentationPopover;
         activityViewController.popoverPresentationController.barButtonItem = self.actionButton;
@@ -959,7 +959,7 @@
     }
     else if (NSClassFromString(@"UIActivityViewController"))
     {
-        NSArray *browserActivities = @[[TOActivitySafari new], [TOActivityChrome new]];
+        NSArray *browserActivities = @[[TOActivitySafari new]];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self.url] applicationActivities:browserActivities];
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -988,7 +988,7 @@
 #pragma GCC diagnostic pop
         }
     }
-    else //We must be on iOS 5
+    else //We must be on iOS 5,
     {
 
 #pragma GCC diagnostic push
@@ -998,41 +998,31 @@
                                                                  delegate:self
                                                         cancelButtonTitle:nil
                                                    destructiveButtonTitle:nil
-                                                        otherButtonTitles:NSLocalizedStringFromTable(@"Copy URL", @"TOWebViewControllerLocalizable", @"Copy the URL"), nil];
+                                                        otherButtonTitles:@"复制链接", nil];
 
         NSInteger numberOfButtons = 1;
 
-        //Add Browser
-        BOOL chromeIsInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]];
-        NSString *browserMessage = NSLocalizedStringFromTable(@"Open in Safari", @"TOWebViewControllerLocalizable", @"Open in Safari");
-        if (chromeIsInstalled)
-            browserMessage = NSLocalizedStringFromTable(@"Open in Chrome", @"TOWebViewControllerLocalizable", @"Open in Chrome");
+        NSString *browserMessage = @"用 Safari 打开";
         
         [actionSheet addButtonWithTitle:browserMessage];
         numberOfButtons++;
         
         //Add Email
         if ([MFMailComposeViewController canSendMail]) {
-            [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Mail", @"TOWebViewControllerLocalizable", @"Send Email")];
+            [actionSheet addButtonWithTitle:@"Email"];
             numberOfButtons++;
         }
         
         //Add SMS
         if ([MFMessageComposeViewController canSendText]) {
-            [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Message", @"TOWebViewControllerLocalizable", @"Send iMessage")];
+            [actionSheet addButtonWithTitle:@"短信"];
             numberOfButtons++;
         }
         
-        //Add Twitter
-        if ([TWTweetComposeViewController canSendTweet]) {
-            [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Twitter", @"TOWebViewControllerLocalizable", @"Send a Tweet")];
-            numberOfButtons++;
-        }
 
-        
         //Add a cancel button if on iPhone
         if (self.compactPresentation) {
-            [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Cancel", @"TOWebViewControllerLocalizable", @"Cancel")];
+            [actionSheet addButtonWithTitle:@"取消"];
             [actionSheet setCancelButtonIndex:numberOfButtons];
             [actionSheet showInView:self.view];
         }
@@ -1063,22 +1053,16 @@
             else if ([MFMessageComposeViewController canSendText])
                 [self openMessageDialog];
 
-            else if ([TWTweetComposeViewController canSendTweet])
-                [self openTwitterDialog];
-
         }
             break;
         case 3: //SMS or Twitter
         {
             if ([MFMessageComposeViewController canSendText])
                 [self openMessageDialog];
-            else if ([TWTweetComposeViewController canSendTweet])
-                [self openTwitterDialog];
         }
             break;
         case 4: //Twitter (or Cancel)
-            if ([MFMessageComposeViewController canSendText])
-                [self openTwitterDialog];
+
         default:
             break;
     }
@@ -1102,40 +1086,8 @@
 
 - (void)openInBrowser
 {
-    BOOL chromeIsInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]];
     NSURL *inputURL = self.webView.request.URL;
-    
-    if (chromeIsInstalled)
-    {
-        NSString *scheme = inputURL.scheme;
-        
-        // Replace the URL Scheme with the Chrome equivalent.
-        NSString *chromeScheme = nil;
-        if ([scheme isEqualToString:@"http"])
-        {
-            chromeScheme = @"googlechrome";
-        }
-        else if ([scheme isEqualToString:@"https"])
-        {
-            chromeScheme = @"googlechromes";
-        }
-        
-        // Proceed only if a valid Google Chrome URI Scheme is available.
-        if (chromeScheme)
-        {
-            NSString *absoluteString    = [inputURL absoluteString];
-            NSRange rangeForScheme      = [absoluteString rangeOfString:@":"];
-            NSString *urlNoScheme       = [absoluteString substringFromIndex:rangeForScheme.location];
-            NSString *chromeURLString   = [chromeScheme stringByAppendingString:urlNoScheme];
-            NSURL *chromeURL            = [NSURL URLWithString:chromeURLString];
-            
-            // Open the URL with Chrome.
-            [[UIApplication sharedApplication] openURL:chromeURL];
-            
-            return;
-        }
-    }
-    
+
     //If all else fails (Or Chrome is simply not installed), open as per usual
     [[UIApplication sharedApplication] openURL:inputURL];
 }
@@ -1164,16 +1116,6 @@
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)openTwitterDialog
-{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    TWTweetComposeViewController *tweetComposer = [[TWTweetComposeViewController alloc] init];
-    [tweetComposer addURL:self.url];
-    [self presentViewController:tweetComposer animated:YES completion:nil];
-#pragma clang diagnostic pop
 }
 
 #pragma mark -

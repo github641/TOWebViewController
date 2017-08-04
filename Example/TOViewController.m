@@ -9,7 +9,7 @@
 #import "TOViewController.h"
 
 #import "TOWebViewController.h"
-#import "TOWebViewController+1Password.h"
+
 
 #ifndef NSFoundationVersionNumber_iOS_6_1
     #define NSFoundationVersionNumber_iOS_6_1  993.00
