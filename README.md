@@ -1,3 +1,8 @@
+将原类库做了一些修改和定制，以符合需要。
+1、去掉了本地化，在代码中默认使用了中文的按钮title等
+2、修改去掉了 『action』按钮点击之后，系列功能中『加入阅读列表』，它不起作用，TODO，查查它为什么不起作用。
+
+
 # TOWebViewController
 ### An Inline Web Browser for iOS Apps
 
